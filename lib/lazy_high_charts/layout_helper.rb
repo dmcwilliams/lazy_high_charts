@@ -37,7 +37,7 @@ module LazyHighCharts
       if defined?(request) && request.respond_to?(:xhr?) && request.xhr?
         graph =<<-EOJS
         <script type="text/javascript">
-        (function() {
+        $(function() {
           #{core_js}
         })()
         </script>
@@ -45,7 +45,7 @@ module LazyHighCharts
       else
         graph =<<-EOJS
         <script type="text/javascript">
-        (function() {
+        $(function() {
           var onload = window.onload;
           window.onload = function(){
             if (typeof onload == "function") onload();
@@ -57,13 +57,13 @@ module LazyHighCharts
       end
 
       if defined?(raw)
-        return raw(graph) 
+        return raw(graph)
       else
         return graph
       end
 
     end
-    
+
     private
 
     def generate_json_from_hash hash
@@ -88,6 +88,6 @@ module LazyHighCharts
     def generate_json_from_array array
       array.map{|value| generate_json_from_value(value)}.join(",")
     end
-    
+
   end
 end
